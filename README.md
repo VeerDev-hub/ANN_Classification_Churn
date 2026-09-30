@@ -1,86 +1,54 @@
-```markdown
-# Churn Prediction with Artificial Neural Network
+# Customer Churn Prediction
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python" alt="Python">
-  <img src="https://img.shields.io/badge/TensorFlow-2.x-FF6F00?style=for-the-badge&logo=tensorflow" alt="TensorFlow">
-  <img src="https://img.shields.io/badge/Scikit--Learn-1.x-F7931E?style=for-the-badge&logo=scikit-learn" alt="Scikit-Learn">
-  <img src="https://img.shields.io/badge/Status-Working-brightgreen?style=for-the-badge" alt="Status">
-</div>
+A small customer churn prediction project built with TensorFlow and Streamlit. The saved neural network estimates the probability that a customer will leave based on their account and profile details.
 
-<p align="center">
-  <strong>AI-powered customer churn prediction model built with a neural network.</strong>
-</p>
+## What’s included
 
-## Tags
-- `tensorflow`
-- `machine-learning`
-- `deep-learning`
-- `classification`
-- `customer-churn`
-- `python`
-- `scikit-learn`
-- `ann`
+- `app.py` — Streamlit interface for entering customer details and viewing a prediction.
+- `model.h5` — trained Keras model.
+- `scaler.pkl`, `label_encoder_gender.pkl`, `onehot_encoder_geo.pkl` — preprocessing objects used during training.
+- `Churn_Modelling.csv` — dataset used by the project.
+- `prediction.ipynb` — notebook showing the prediction workflow.
+- `experiments.ipynb` — notebook for model experiments.
 
-## Overview
-This project predicts whether a customer is likely to churn using a trained Artificial Neural Network (ANN). It includes:
-- Data preprocessing
-- Categorical encoding
-- Feature scaling
-- Model training and saving
-- Prediction using saved model artifacts
+## Requirements
 
-## Features
-- Customer churn prediction
-- Input preprocessing for categorical variables
-- Saved trained model and scaler
-- Example prediction workflow
-- Notebook-based implementation
+Python 3.10 or newer is recommended. Install the dependencies from the project directory:
 
-## Tech Stack
-- Python
-- TensorFlow / Keras
-- Pandas
-- NumPy
-- Scikit-learn
-- Pickle
-
-## Project Structure
 ```bash
-annclassification/
-├── train.ipynb
-├── prediction.ipynb
-├── model.h5
-├── scaler.pkl
-├── label_encoder_gender.pkl
-├── onehot_encoder_geo.pkl
-├── README.md
-└── data/
+python -m venv .venv
 ```
 
-## Setup
-1. Create a virtual environment
-2. Install dependencies:
+Activate the environment, then run:
+
 ```bash
-pip install tensorflow pandas numpy scikit-learn
+python -m pip install -r requirements.txt
 ```
 
-## Run
-Open the notebooks in VS Code or Jupyter:
-- `train.ipynb` to train the model
-- `prediction.ipynb` to predict churn for new customer data
+On Windows PowerShell, activate it with `.venv\Scripts\Activate.ps1`. On macOS or Linux, use `source .venv/bin/activate`.
 
-## Example Prediction
-```python
-prediction_proba = prediction[0][0]
-if prediction_proba > 0.5:
-    print("The customer is likely to churn.")
-else:
-    print("The customer is not likely to churn.")
+## Run the app
+
+From the `annclassification` directory, start the Streamlit app:
+
+```bash
+streamlit run app.py
 ```
+
+Streamlit will print a local URL to open in your browser. Enter the customer's geography, gender, age, credit score, balance, salary, tenure, product count, and account activity details. The app displays a churn probability and classifies probabilities above `0.5` as likely to churn.
+
+Keep `app.py`, `model.h5`, and all three `.pkl` preprocessing files together in the same directory; the app loads these files by relative path.
+
+## Prediction workflow
+
+The app encodes gender and geography, assembles the features, scales them with the saved training scaler, and passes them to the model. The preprocessing artifacts and model must come from the same training run and be used with the same feature order for predictions to be meaningful.
+
+To explore the notebook-based workflow, open `prediction.ipynb` in Jupyter or VS Code. The notebooks are for exploration; `app.py` is the interactive application entry point.
+
+## Dependencies
+
+The main dependencies are TensorFlow, pandas, NumPy, scikit-learn, and TensorBoard. The complete pinned/unpinned dependency list is in [`requirements.txt`](requirements.txt).
 
 ## License
-This project is for educational and demonstration purposes.
 
-## Author
-Built with Python and TensorFlow for machine learning experimentation.
+No license file is currently included. Contact the project owner before reusing or redistributing this project.
